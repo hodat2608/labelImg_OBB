@@ -632,56 +632,56 @@ class Canvas(QWidget):
             h_delta and self.scrollRequest.emit(h_delta, Qt.Horizontal)
         ev.accept()
 
-    # def keyPressEvent(self, ev):
-    #     key = ev.key()
-    #     if key == Qt.Key_Escape and self.current:
-    #         print('ESC press')
-    #         self.current = None
-    #         self.drawingPolygon.emit(False)
-    #         self.update()
-    #     elif key == Qt.Key_Return and self.canCloseShape():
-    #         self.finalise()
-    #     elif key == Qt.Key_Left and self.selectedShape:
-    #         self.moveOnePixel('Left')
-    #     elif key == Qt.Key_Right and self.selectedShape:
-    #         self.moveOnePixel('Right')
-    #     elif key == Qt.Key_Up and self.selectedShape:
-    #         self.moveOnePixel('Up')
-    #     elif key == Qt.Key_Down and self.selectedShape:
-    #         self.moveOnePixel('Down')
+    def keyPressEvent(self, ev):
+        key = ev.key()
+        if key == Qt.Key_Escape and self.current:
+            print('ESC press')
+            self.current = None
+            self.drawingPolygon.emit(False)
+            self.update()
+        elif key == Qt.Key_Return and self.canCloseShape():
+            self.finalise()
+        elif key == Qt.Key_Left and self.selectedShape:
+            self.moveOnePixel('Left')
+        elif key == Qt.Key_Right and self.selectedShape:
+            self.moveOnePixel('Right')
+        elif key == Qt.Key_Up and self.selectedShape:
+            self.moveOnePixel('Up')
+        elif key == Qt.Key_Down and self.selectedShape:
+            self.moveOnePixel('Down')
 
-    # def moveOnePixel(self, direction):
-    #     # print(self.selectedShape.points)
-    #     if direction == 'Left' and not self.moveOutOfBound(QPointF(-1.0, 0)):
-    #         # print("move Left one pixel")
-    #         self.selectedShape.points[0] += QPointF(-1.0, 0)
-    #         self.selectedShape.points[1] += QPointF(-1.0, 0)
-    #         self.selectedShape.points[2] += QPointF(-1.0, 0)
-    #         self.selectedShape.points[3] += QPointF(-1.0, 0)
-    #     elif direction == 'Right' and not self.moveOutOfBound(QPointF(1.0, 0)):
-    #         # print("move Right one pixel")
-    #         self.selectedShape.points[0] += QPointF(1.0, 0)
-    #         self.selectedShape.points[1] += QPointF(1.0, 0)
-    #         self.selectedShape.points[2] += QPointF(1.0, 0)
-    #         self.selectedShape.points[3] += QPointF(1.0, 0)
-    #     elif direction == 'Up' and not self.moveOutOfBound(QPointF(0, -1.0)):
-    #         # print("move Up one pixel")
-    #         self.selectedShape.points[0] += QPointF(0, -1.0)
-    #         self.selectedShape.points[1] += QPointF(0, -1.0)
-    #         self.selectedShape.points[2] += QPointF(0, -1.0)
-    #         self.selectedShape.points[3] += QPointF(0, -1.0)
-    #     elif direction == 'Down' and not self.moveOutOfBound(QPointF(0, 1.0)):
-    #         # print("move Down one pixel")
-    #         self.selectedShape.points[0] += QPointF(0, 1.0)
-    #         self.selectedShape.points[1] += QPointF(0, 1.0)
-    #         self.selectedShape.points[2] += QPointF(0, 1.0)
-    #         self.selectedShape.points[3] += QPointF(0, 1.0)
-    #     self.shapeMoved.emit()
-    #     self.repaint()
+    def moveOnePixel(self, direction):
+        # print(self.selectedShape.points)
+        if direction == 'Left' and not self.moveOutOfBound(QPointF(-1.0, 0)):
+            # print("move Left one pixel")
+            self.selectedShape.points[0] += QPointF(-1.0, 0)
+            self.selectedShape.points[1] += QPointF(-1.0, 0)
+            self.selectedShape.points[2] += QPointF(-1.0, 0)
+            self.selectedShape.points[3] += QPointF(-1.0, 0)
+        elif direction == 'Right' and not self.moveOutOfBound(QPointF(1.0, 0)):
+            # print("move Right one pixel")
+            self.selectedShape.points[0] += QPointF(1.0, 0)
+            self.selectedShape.points[1] += QPointF(1.0, 0)
+            self.selectedShape.points[2] += QPointF(1.0, 0)
+            self.selectedShape.points[3] += QPointF(1.0, 0)
+        elif direction == 'Up' and not self.moveOutOfBound(QPointF(0, -1.0)):
+            # print("move Up one pixel")
+            self.selectedShape.points[0] += QPointF(0, -1.0)
+            self.selectedShape.points[1] += QPointF(0, -1.0)
+            self.selectedShape.points[2] += QPointF(0, -1.0)
+            self.selectedShape.points[3] += QPointF(0, -1.0)
+        elif direction == 'Down' and not self.moveOutOfBound(QPointF(0, 1.0)):
+            # print("move Down one pixel")
+            self.selectedShape.points[0] += QPointF(0, 1.0)
+            self.selectedShape.points[1] += QPointF(0, 1.0)
+            self.selectedShape.points[2] += QPointF(0, 1.0)
+            self.selectedShape.points[3] += QPointF(0, 1.0)
+        self.shapeMoved.emit()
+        self.repaint()
 
-    # def moveOutOfBound(self, step):
-    #     points = [p1+p2 for p1, p2 in zip(self.selectedShape.points, [step]*4)]
-    #     return True in map(self.outOfPixmap, points)
+    def moveOutOfBound(self, step):
+        points = [p1+p2 for p1, p2 in zip(self.selectedShape.points, [step]*4)]
+        return True in map(self.outOfPixmap, points)
 
     def setLastLabel(self, text, line_color  = None, fill_color = None):
         assert text
@@ -750,56 +750,3 @@ class Canvas(QWidget):
 
     def setDrawingShapeToSquare(self, status):
         self.drawSquare = status
-
-    ##########################
-
-    def keyPressEvent(self, ev):
-        key = ev.key()
-        if key == Qt.Key_Escape and self.current:
-            print('ESC press')
-            self.current = None
-            self.drawingPolygon.emit(False)
-            self.update()
-        elif key == Qt.Key_Return and self.can_close_shape():
-            self.finalise()
-        elif key == Qt.Key_Left and self.selected_shape:
-            self.move_one_pixel('Left')
-        elif key == Qt.Key_Right and self.selected_shape:
-            self.move_one_pixel('Right')
-        elif key == Qt.Key_Up and self.selected_shape:
-            self.move_one_pixel('Up')
-        elif key == Qt.Key_Down and self.selected_shape:
-            self.move_one_pixel('Down')
-
-    def move_one_pixel(self, direction):
-        # print(self.selectedShape.points)
-        if direction == 'Left' and not self.move_out_of_bound(QPointF(-1.0, 0)):
-            # print("move Left one pixel")
-            self.selected_shape.points[0] += QPointF(-1.0, 0)
-            self.selected_shape.points[1] += QPointF(-1.0, 0)
-            self.selected_shape.points[2] += QPointF(-1.0, 0)
-            self.selected_shape.points[3] += QPointF(-1.0, 0)
-        elif direction == 'Right' and not self.move_out_of_bound(QPointF(1.0, 0)):
-            # print("move Right one pixel")
-            self.selected_shape.points[0] += QPointF(1.0, 0)
-            self.selected_shape.points[1] += QPointF(1.0, 0)
-            self.selected_shape.points[2] += QPointF(1.0, 0)
-            self.selected_shape.points[3] += QPointF(1.0, 0)
-        elif direction == 'Up' and not self.move_out_of_bound(QPointF(0, -1.0)):
-            # print("move Up one pixel")
-            self.selected_shape.points[0] += QPointF(0, -1.0)
-            self.selected_shape.points[1] += QPointF(0, -1.0)
-            self.selected_shape.points[2] += QPointF(0, -1.0)
-            self.selected_shape.points[3] += QPointF(0, -1.0)
-        elif direction == 'Down' and not self.move_out_of_bound(QPointF(0, 1.0)):
-            # print("move Down one pixel")
-            self.selected_shape.points[0] += QPointF(0, 1.0)
-            self.selected_shape.points[1] += QPointF(0, 1.0)
-            self.selected_shape.points[2] += QPointF(0, 1.0)
-            self.selected_shape.points[3] += QPointF(0, 1.0)
-        self.shapeMoved.emit()
-        self.repaint()
-
-    def move_out_of_bound(self, step):
-        points = [p1 + p2 for p1, p2 in zip(self.selected_shape.points, [step] * 4)]
-        return True in map(self.out_of_pixmap, points)
